@@ -1,0 +1,28 @@
+{
+  "name": "object-file-sync",
+  "version": "1.0.0",
+  "description": "A small library for syncing on-disk config files with the in-memory object state.",
+  "main": "build/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/4S1ght/object-file-sync.git"
+  },
+  "keywords": [
+    "object",
+    "sync",
+    "offload"
+  ],
+  "author": "4S1ght",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/4S1ght/object-file-sync/issues"
+  },
+  "homepage": "https://github.com/4S1ght/object-file-sync#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.24"
+  }
+}
