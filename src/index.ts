@@ -138,12 +138,3 @@ export default class ObjectFile<ContentType = any> {
     }
 
 }
-
-const config = ObjectFile.create({
-    fileLocation: path.join(process.cwd(), '/test/test.json'),
-    recursive: true,
-    save: 3000,
-    defaultContent: {
-        hello: 'world'
-    }
-})

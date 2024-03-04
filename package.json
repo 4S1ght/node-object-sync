@@ -1,5 +1,5 @@
 {
-  "name": "object-file-sync",
+  "name": "node-object-sync",
   "version": "1.0.0",
   "description": "A small library for syncing on-disk config files with the in-memory object state.",
   "main": "build/index.js",
