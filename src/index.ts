@@ -11,7 +11,7 @@ import {createLazyTimer} from './timer.js'
 type Parser      = (object: string) => any
 type Stringifier = (data: any)      => string
 
-interface ObjectFileSettings<ContentType> {
+interface SyncedObjectSettings<ContentType> {
     /** 
      * Absolute path to the file where the configuration should be stored.  
      * ```js 
@@ -61,7 +61,7 @@ interface ObjectFileSettings<ContentType> {
 
 // Implementation =============================================================
 
-export default class ObjectFile<ContentType = any> {
+export default class SyncedObject<ContentType = any> {
 
     // Configuration
     private fileLocation: string
@@ -71,7 +71,7 @@ export default class ObjectFile<ContentType = any> {
     private parse: Parser
     private timerCall: Function
 
-    private constructor(settings: ObjectFileSettings<ContentType>) {
+    private constructor(settings: SyncedObjectSettings<ContentType>) {
 
         this.fileLocation   = settings.fileLocation
         this.content        = settings.defaultContent
@@ -96,7 +96,7 @@ export default class ObjectFile<ContentType = any> {
 
     }
 
-    static create<ContentType extends Object>(settings: ObjectFileSettings<ContentType>): ContentType {
+    static create<ContentType extends Object>(settings: SyncedObjectSettings<ContentType>): ContentType {
 
         const self = new this(settings)
 
