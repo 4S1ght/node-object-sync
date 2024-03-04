@@ -38,7 +38,8 @@ myWrappedConfig.logLevel = "debug"
 ```
 
 ## API
-### There is no API!  
+**There is no API!**  
+
 You can interact with your object directly like you have done to this time and the `SyncedObject` instance will act as a middleman, monitoring your changes and writing them to the configuration file for you.
 
 ## Configuration options

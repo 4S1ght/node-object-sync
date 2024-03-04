@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/4S1ght/object-file-sync.git"
+    "url": "git+ssh://git@github.com/4S1ght/node-object-sync.git"
   },
   "keywords": [
     "object",
@@ -19,9 +19,9 @@
   "author": "4S1ght",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/4S1ght/object-file-sync/issues"
+    "url": "https://github.com/4S1ght/node-object-sync/issues"
   },
-  "homepage": "https://github.com/4S1ght/object-file-sync#readme",
+  "homepage": "https://github.com/4S1ght/node-object-sync#readme",
   "devDependencies": {
     "@types/node": "^20.11.24",
     "typescript": "^5.3.3"
