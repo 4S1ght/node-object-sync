@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/4S1ght/object-file-sync#readme",
   "devDependencies": {
-    "@types/node": "^20.11.24"
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
   }
 }
