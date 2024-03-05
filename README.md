@@ -5,9 +5,9 @@ the contents of on-disk configuration files with the in-memory state.
 ## Documentation
 - [Basic setup](#basic-setup)
 - [API](#api)
-- [Configuration options](#configuration-options)
-    - [`fileLocation`](#filelocation)
-    - [`defaultContent`](#defaultContent)
+- [Configuration options](#param)
+    - [`target`](#param-0-target)
+    - [`fileLocation`](#param-1-filelocation)
     - [`recursive`](#recursive)
     - [`save`](#save)
     - [`format`](#format)
@@ -24,16 +24,14 @@ const myConfig = {
     ...
 }
 
-const myWrappedConfig = SyncedObject.create({
-    // The object that's being wrapped:
-    defaultContent: myConfig,
-    // Location of the file where the data is being saved to:
-    fileLocation: "/Users/user/Library/Preferences/my-app/my-config.json"
-})
+// Wrap "myConfig" and use the new wrapper as a proxy and specify 
+// the path to the location where the config is being saved to.
+const myWrappedConfig = ObjectSync.wrap(myConfig, "/path/to/my-config.json")
 
 // Modify "logLevel"
 myWrappedConfig.logLevel = "debug"
-// After the property is reassigned, the changes are immediately saved to the disk.
+// After the property is reassigned, the changes are immediately
+// saved to the disk.
 
 ```
 
@@ -44,12 +42,13 @@ You can interact with your object directly like you have done to this time and t
 
 ## Configuration options
 
-- ###### `defaultContent` 
+- ###### `param #0: target`
+
     Type: `<Object>`
 
     Defines the default content of the configuration file that is written to it if the file doesn't already exist.
 
-- ###### `fileLocation` 
+- ###### `param #1: fileLocation` 
     Type: `<string>`
 
     Defines the location where wrapped object is stored.  

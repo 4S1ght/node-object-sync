@@ -11,22 +11,7 @@ import {createLazyTimer} from './timer.js'
 type Parser      = (object: string) => any
 type Stringifier = (data: any)      => string
 
-interface SyncedObjectSettings<ContentType> {
-    /** 
-     * Absolute path to the file where the configuration should be stored.  
-     * ```js 
-     * // Example:
-     * "/Users/user/Library/Preferences/my-config.json"
-     * path.join(process.env.HOME, "my-config.json")
-     * // ...
-     * ``` */
-    fileLocation: string
-    /**
-     * The default content of the configuration file.  
-     * If the configuration file doesn't exist in the specified location, a new one
-     * will be created and populated with this information.
-     */
-    defaultContent: ContentType
+interface SyncedObjectSettings {
     /**
      * Specifies whether or not to create the parent folder(s) where the configuration file should reside.
      * Similar to `fs.mkdir("/folder1/folder2/folder3/", { recursive: true })`
@@ -61,20 +46,20 @@ interface SyncedObjectSettings<ContentType> {
 
 // Implementation =============================================================
 
-export default class SyncedObject<ContentType = any> {
+export default class ObjectSync<TargetObject = any> {
 
     // Configuration
     private fileLocation: string
-    private content: ContentType
+    private content: TargetObject
     private recursive: boolean
     private stringify: Stringifier
     private parse: Parser
     private timerCall: Function
 
-    private constructor(settings: SyncedObjectSettings<ContentType>) {
+    private constructor(target: TargetObject, fileLocation: string, settings: SyncedObjectSettings) {
 
-        this.fileLocation   = settings.fileLocation
-        this.content        = settings.defaultContent
+        this.fileLocation   = fileLocation
+        this.content        = target
         this.recursive      = settings.recursive || false
         this.parse          = settings.format ? settings.format.parse     : JSON.parse
         this.stringify      = settings.format ? settings.format.stringify : JSON.stringify
@@ -96,9 +81,30 @@ export default class SyncedObject<ContentType = any> {
 
     }
 
-    static create<ContentType extends Object>(settings: SyncedObjectSettings<ContentType>): ContentType {
+    /**
+     * Wraps an object and synchronizes monitors any changes made to it 
+     * to synchronize its state with an on-disk file of your choosing.
+     * 
+     * ```js
+     * // Example:
+     * const myObject = { hello: "world" }
+     * const myWrappedObject = ObjectSync.wrap(myObject, "/path/to/my/file.json"}, {})
+     * 
+     * // Reassign the "hello" prop and save the changes to the disk immediately:
+     * myWrappedObject.hello = "not world..?"
+     * ```
+     * @param target 
+     * The default content of the configuration file. 
+     * If the configuration file doesn't exist in the specified location, a new one
+     * will be created and populated with this information. 
+     * @param fileLocation 
+     * Absolute path to the file where the configuration should be stored.  
+     * @param settings 
+     * Additional settings for configuring things like the saving behavior or the file format...
+     */
+    static wrap<TargetObject extends Object>(target: TargetObject, fileLocation: string, settings: SyncedObjectSettings = {}): TargetObject {
 
-        const self = new this(settings)
+        const self = new this(target, fileLocation, settings)
 
         // @ts-ignore - I don't have the nerve for this...
         return new Proxy(self.content, {
