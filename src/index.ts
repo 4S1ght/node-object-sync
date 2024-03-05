@@ -144,7 +144,3 @@ export default class ObjectSync<TargetObject = any> {
     }
 
 }
-
-const x = ObjectSync.wrap({ hello: 'world' }, "/Users/shape/Desktop/Projects/object-file-sync/test/test.json", {
-    recursive: true
-})
